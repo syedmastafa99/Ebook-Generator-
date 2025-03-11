@@ -66,6 +66,18 @@ def generate_ebook():
     else:
         flash('Only EPUB format is currently supported.')
         return redirect(url_for('index'))
+    @app.errorhandler(500)
+def handle_500(e):
+    app.logger.error(f'Server error: {e}', exc_info=True)
+    return "Internal server error. Please check the logs.", 500
+
+@app.route('/')
+def index():
+    try:
+        return render_template('index.html')
+    except Exception as e:
+        app.logger.error(f'Error rendering index: {e}', exc_info=True)
+        return f"Error loading page: {str(e)}", 500
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
