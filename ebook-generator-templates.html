@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ebook Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Ebook Generator</h1>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        <form action="{{ url_for('generate') }}" method="post">
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="format">Format:</label>
+                <select id="format" name="format">
+                    <option value="epub">EPUB</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="content">Content (Markdown format):</label>
+                <textarea id="content" name="content" rows="15" required></textarea>
+                <div class="markdown-tips">
+                    <h4>Markdown Tips:</h4>
+                    <ul>
+                        <li># Heading 1</li>
+                        <li>## Heading 2</li>
+                        <li>**Bold text**</li>
+                        <li>*Italic text*</li>
+                        <li>[Link](https://example.com)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn">Generate Ebook</button>
+        </form>
+    </div>
+</body>
+</html>
