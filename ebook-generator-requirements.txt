@@ -1,0 +1,4 @@
+Flask==2.3.3
+markdown2==2.4.10
+EbookLib==0.18
+gunicorn==21.2.0
